@@ -1,264 +1,573 @@
--- ╔══════════════════════════════════════════════════════════════════╗
--- ║                    VORTEX HUB - PREMIUM LOGO V2                  ║
--- ║              Hiệu ứng sang trọng - Cực to - Cắt góc             ║
--- ╚══════════════════════════════════════════════════════════════════╝
-
-local Players      = game:GetService("Players")
-local RunService   = game:GetService("RunService")
+-- // UI Large \\ --
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lightning")
+local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
-local LocalPlayer  = Players.LocalPlayer
-local PlayerGui    = LocalPlayer:WaitForChild("PlayerGui")
+local VirtualInputManager = game:GetService("VirtualInputManager")
 
--- ======= CẤU HÌNH =======
-local MUSIC_ID     = "rbxassetid://1843671946"
-local BPM          = 128
-local TEXTURE_ID   = "rbxassetid://106076957031352"
--- =========================
+local player = Players.LocalPlayer
 
-if PlayerGui:FindFirstChild("VortexLogo") then
-    PlayerGui.VortexLogo:Destroy()
-end
+local blur = Instance.new("BlurEffect")
+blur.Name = "CameraBlur"
+blur.Size = 24
+blur.Parent = Lighting
 
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name           = "VortexLogo"
-ScreenGui.ResetOnSpawn   = false
-ScreenGui.IgnoreGuiInset = true
-ScreenGui.DisplayOrder   = 9999
-ScreenGui.Parent         = PlayerGui
+local CoinCard_1 = Instance.new("ScreenGui")
+local DropShadowHolder_1 = Instance.new("Frame")
+local Main_1 = Instance.new("Frame")
+local UICorner_1 = Instance.new("UICorner")
+local UIStroke_1 = Instance.new("UIStroke")
+local Divider_1 = Instance.new("Frame")
+local Divider_2 = Instance.new("Frame")
+local TypeAccountScroll_1 = Instance.new("Frame")
+local ItemLabel1_1 = Instance.new("TextLabel")
+local ItemLabel2_1 = Instance.new("TextLabel")
+local ItemLabel1_2 = Instance.new("TextLabel")
+local BeliLabel_1 = Instance.new("TextLabel")
+local LevelLabel_1 = Instance.new("TextLabel")
+local RaceLabel_1 = Instance.new("TextLabel")
+local TextLabel_1 = Instance.new("TextLabel")
+local TextLabel_2 = Instance.new("TextLabel")
+local TextLabel_3 = Instance.new("TextLabel")
+local TextLabel_4 = Instance.new("TextLabel")
+local TextLabel_5 = Instance.new("TextLabel")
+local TextLabel_6 = Instance.new("TextLabel")
+local TextLabel_7 = Instance.new("TextLabel")
+local Top_1 = Instance.new("TextLabel")
+local UIGradient_1 = Instance.new("UIGradient")
+local Under_1 = Instance.new("TextLabel")
+local UIGradient_2 = Instance.new("UIGradient")
+local Under_2 = Instance.new("TextLabel")
+local UIGradient_3 = Instance.new("UIGradient")
+local DropShadow_1 = Instance.new("ImageLabel")
 
--- ===== CLIP FRAME =====
-local Clip = Instance.new("Frame")
-Clip.Name                 = "Clip"
-Clip.Size                 = UDim2.new(0.42, 0, 0.6, 0)
-Clip.Position             = UDim2.new(0, 0, 0.4, 0)
-Clip.BackgroundTransparency = 1
-Clip.ClipsDescendants     = true
-Clip.ZIndex               = 7
-Clip.Parent               = ScreenGui
+CoinCard_1.Name = "CoinCard"
+CoinCard_1.Parent = game:GetService("CoreGui")
+CoinCard_1.ResetOnSpawn = false
+CoinCard_1.DisplayOrder = 20
 
-local LOGO_SIZE = 550
+DropShadowHolder_1.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadowHolder_1.BackgroundColor3 = Color3.fromRGB(163, 163, 163)
+DropShadowHolder_1.BackgroundTransparency = 1
+DropShadowHolder_1.BorderColor3 = Color3.fromRGB(27, 42, 53)
+DropShadowHolder_1.Name = "DropShadowHolder"
+DropShadowHolder_1.Parent = CoinCard_1
+DropShadowHolder_1.Position = UDim2.new(0.5, 0, 0.5, 0)
+DropShadowHolder_1.Size = UDim2.new(0, 600, 0, 400)
+DropShadowHolder_1.ZIndex = 1
+DropShadowHolder_1.Selectable = false
 
-local POS_IN  = UDim2.new(0, -180, 1, -LOGO_SIZE + 100)
-local POS_OUT = UDim2.new(0, -(LOGO_SIZE + 80), 1, -LOGO_SIZE + 100)
+Main_1.AnchorPoint = Vector2.new(0.5, 0.5)
+Main_1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+Main_1.BackgroundTransparency = 0.5
+Main_1.Name = "Main"
+Main_1.Parent = DropShadowHolder_1
+Main_1.Position = UDim2.new(0.5, 0, 0.5, 0)
+Main_1.Size = UDim2.new(1, -47, 1, -47)
+Main_1.Selectable = false
 
--- ===== LỚP BÓNG (Shadow) =====
-local Shadow = Instance.new("ImageLabel")
-Shadow.Name                   = "Shadow"
-Shadow.Size                   = UDim2.new(0, LOGO_SIZE, 0, LOGO_SIZE)
-Shadow.Position               = POS_OUT
-Shadow.AnchorPoint            = Vector2.new(0, 0)
-Shadow.BackgroundTransparency = 1
-Shadow.Image                  = TEXTURE_ID
-Shadow.ImageColor3            = Color3.fromRGB(0, 0, 0)
-Shadow.ImageTransparency      = 0.65
-Shadow.ZIndex                 = 8
-Shadow.Parent                 = Clip
+UICorner_1.CornerRadius = UDim.new(0, 5)
+UICorner_1.Parent = Main_1
 
--- ===== LỚP PHÁT SÁNG (Glow) =====
-local Glow = Instance.new("ImageLabel")
-Glow.Name                   = "Glow"
-Glow.Size                   = UDim2.new(0, LOGO_SIZE + 50, 0, LOGO_SIZE + 50)
-Glow.Position               = POS_OUT
-Glow.AnchorPoint            = Vector2.new(0, 0)
-Glow.BackgroundTransparency = 1
-Glow.Image                  = TEXTURE_ID
-Glow.ImageColor3            = Color3.fromRGB(138, 43, 226)
-Glow.ImageTransparency      = 0.75
-Glow.ZIndex                 = 9
-Glow.Parent                 = Clip
+UIStroke_1.Color = Color3.fromRGB(138, 43, 226) -- Purple color
+UIStroke_1.Thickness = 2.5
+UIStroke_1.Parent = Main_1
 
--- ===== VIỀN SÁNG XUNG QUANH =====
-local BorderGlow = Instance.new("ImageLabel")
-BorderGlow.Name                   = "BorderGlow"
-BorderGlow.Size                   = UDim2.new(0, LOGO_SIZE + 15, 0, LOGO_SIZE + 15)
-BorderGlow.Position               = POS_OUT
-BorderGlow.AnchorPoint            = Vector2.new(0, 0)
-BorderGlow.BackgroundTransparency = 1
-BorderGlow.Image                  = "rbxassetid://5028857084"
-BorderGlow.ImageColor3            = Color3.fromRGB(138, 43, 226)
-BorderGlow.ImageTransparency      = 0.5
-BorderGlow.ZIndex                 = 8
-BorderGlow.Parent                 = Clip
+Divider_1.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Divider_1.Name = "Divider"
+Divider_1.Parent = Main_1
+Divider_1.Position = UDim2.new(0.15000000596046448, 0, 0.15000000596046448, 0)
+Divider_1.Size = UDim2.new(0.699999988079071, 0, 0, 2)
+Divider_1.Selectable = false
 
--- ===== LOGO CHÍNH =====
-local Logo = Instance.new("ImageLabel")
-Logo.Name                   = "Logo"
-Logo.Size                   = UDim2.new(0, LOGO_SIZE, 0, LOGO_SIZE)
-Logo.Position               = POS_OUT
-Logo.AnchorPoint            = Vector2.new(0, 0)
-Logo.BackgroundTransparency = 1
-Logo.Image                  = TEXTURE_ID
-Logo.ImageColor3            = Color3.fromRGB(255, 255, 255)
-Logo.ImageTransparency      = 0
-Logo.ZIndex                 = 10
-Logo.Parent                 = Clip
+Divider_2.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Divider_2.Name = "Divider"
+Divider_2.Parent = Main_1
+Divider_2.Position = UDim2.new(0.10000000149011612, 0, 0.75, 0)
+Divider_2.Size = UDim2.new(0.800000011920929, 0, 0, 2)
+Divider_2.Selectable = false
 
--- ===== HIỆU ỨNG HẠT SÁNG (Particle) =====
-local ParticleContainer = Instance.new("Frame")
-ParticleContainer.Name = "Particles"
-ParticleContainer.Size = UDim2.new(1, 0, 1, 0)
-ParticleContainer.BackgroundTransparency = 1
-ParticleContainer.Parent = Clip
+TypeAccountScroll_1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+TypeAccountScroll_1.BackgroundTransparency = 1
+TypeAccountScroll_1.BorderColor3 = Color3.fromRGB(27, 42, 53)
+TypeAccountScroll_1.Name = "TypeAccountScroll"
+TypeAccountScroll_1.Parent = Main_1
+TypeAccountScroll_1.Position = UDim2.new(0.550000011920929, 0, 0.3499999940395355, 0)
+TypeAccountScroll_1.Size = UDim2.new(0.4000000059604645, 0, 0.3499999940395355, 0)
+TypeAccountScroll_1.Selectable = false
 
-local particles = {}
-for i = 1, 30 do
-    local particle = Instance.new("Frame")
-    particle.Size = UDim2.new(0, math.random(2, 5), 0, math.random(2, 5))
-    particle.Position = UDim2.new(math.random(), 0, math.random(), 0)
-    particle.BackgroundColor3 = Color3.fromRGB(138, 43, 226)
-    particle.BackgroundTransparency = 0.3
-    particle.BorderSizePixel = 0
-    local corner = Instance.new("UICorner")
-    corner.CornerRadius = UDim.new(1, 0)
-    corner.Parent = particle
-    particle.Parent = ParticleContainer
-    table.insert(particles, particle)
-end
+ItemLabel1_1.BackgroundTransparency = 1
+ItemLabel1_1.Name = "ItemLabel1"
+ItemLabel1_1.Parent = TypeAccountScroll_1
+ItemLabel1_1.Size = UDim2.new(1, 0, 0, 18)
+ItemLabel1_1.Selectable = false
+ItemLabel1_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+ItemLabel1_1.Text = "Item 1"
+ItemLabel1_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+ItemLabel1_1.TextSize = 16
 
--- ===== NHẠC NỀN =====
-local Sound = Instance.new("Sound")
-Sound.Name               = "VortexMusic"
-Sound.SoundId            = MUSIC_ID
-Sound.Volume             = 0.5
-Sound.Looped             = true
-Sound.RollOffMaxDistance = 999999
-Sound.Parent             = workspace
+ItemLabel2_1.BackgroundTransparency = 1
+ItemLabel2_1.Name = "ItemLabel2"
+ItemLabel2_1.Parent = TypeAccountScroll_1
+ItemLabel2_1.Position = UDim2.new(0, 0, 0, 20)
+ItemLabel2_1.Size = UDim2.new(1, 0, 0, 18)
+ItemLabel2_1.Selectable = false
+ItemLabel2_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+ItemLabel2_1.Text = "Item 2"
+ItemLabel2_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+ItemLabel2_1.TextSize = 16
 
-local function playMusic()
-    if not Sound.IsPlaying then Sound:Play() end
-end
-if Sound.IsLoaded then playMusic()
-else Sound.Loaded:Once(playMusic) end
+ItemLabel1_2.BackgroundTransparency = 1
+ItemLabel1_2.Name = "ItemLabel1"
+ItemLabel1_2.Parent = TypeAccountScroll_1
+ItemLabel1_2.Position = UDim2.new(0, 0, 0, 40)
+ItemLabel1_2.Size = UDim2.new(1, 0, 0, 18)
+ItemLabel1_2.Selectable = false
+ItemLabel1_2.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+ItemLabel1_2.Text = "Item 3"
+ItemLabel1_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+ItemLabel1_2.TextSize = 16
 
--- ===== HIỆU ỨNG SLIDE VÀO =====
-local introDone = false
-local particleTime = 0
+BeliLabel_1.BackgroundTransparency = 1
+BeliLabel_1.Name = "BeliLabel"
+BeliLabel_1.Parent = Main_1
+BeliLabel_1.Position = UDim2.new(0.07000000029802322, 0, 0.550000011920929, 0)
+BeliLabel_1.Size = UDim2.new(0, 0, 0, 18)
+BeliLabel_1.Selectable = false
+BeliLabel_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+BeliLabel_1.Text = "Money: N/A"
+BeliLabel_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+BeliLabel_1.TextSize = 16
+BeliLabel_1.TextXAlignment = Enum.TextXAlignment.Left
+BeliLabel_1.TextYAlignment = Enum.TextYAlignment.Bottom
 
-task.delay(0.2, function()
-    -- Slide logo chính
-    local slideIn = TweenService:Create(Logo,
-        TweenInfo.new(3.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-            Position = POS_IN,
-        }
-    )
-    slideIn:Play()
+LevelLabel_1.BackgroundTransparency = 1
+LevelLabel_1.Name = "LevelLabel"
+LevelLabel_1.Parent = Main_1
+LevelLabel_1.Position = UDim2.new(0.07000000029802322, 0, 0.3499999940395355, 0)
+LevelLabel_1.Size = UDim2.new(0, 0, 0, 18)
+LevelLabel_1.Selectable = false
+LevelLabel_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+LevelLabel_1.Text = "Level: N/A    Third Sea: ❌"
+LevelLabel_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+LevelLabel_1.TextSize = 16
+LevelLabel_1.TextXAlignment = Enum.TextXAlignment.Left
+LevelLabel_1.TextYAlignment = Enum.TextYAlignment.Bottom
+
+RaceLabel_1.BackgroundTransparency = 1
+RaceLabel_1.Name = "RaceLabel"
+RaceLabel_1.Parent = Main_1
+RaceLabel_1.Position = UDim2.new(0.07000000029802322, 0, 0.44999998807907104, 0)
+RaceLabel_1.Size = UDim2.new(0, 0, 0, 18)
+RaceLabel_1.Selectable = false
+RaceLabel_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+RaceLabel_1.Text = "Race: N/A"
+RaceLabel_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+RaceLabel_1.TextSize = 16
+RaceLabel_1.TextXAlignment = Enum.TextXAlignment.Left
+RaceLabel_1.TextYAlignment = Enum.TextYAlignment.Bottom
+
+TextLabel_1.BackgroundTransparency = 1
+TextLabel_1.Parent = Main_1
+TextLabel_1.Position = UDim2.new(0.07000000029802322, 0, 0.800000011920929, 0)
+TextLabel_1.Size = UDim2.new(0, 0, 0, 18)
+TextLabel_1.Selectable = false
+TextLabel_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_1.Text = "🔴 God Human"
+TextLabel_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_1.TextSize = 16
+TextLabel_1.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel_1.TextYAlignment = Enum.TextYAlignment.Bottom
+
+TextLabel_2.BackgroundTransparency = 1
+TextLabel_2.Parent = Main_1
+TextLabel_2.Position = UDim2.new(0.75, 0, 0.8999999761581421, 0)
+TextLabel_2.Size = UDim2.new(0, 0, 0, 18)
+TextLabel_2.Selectable = false
+TextLabel_2.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_2.Text = "🔴 Pull Lever"
+TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.TextSize = 16
+TextLabel_2.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel_2.TextYAlignment = Enum.TextYAlignment.Bottom
+
+TextLabel_3.BackgroundTransparency = 1
+TextLabel_3.Parent = Main_1
+TextLabel_3.Position = UDim2.new(0.75, 0, 0.800000011920929, 0)
+TextLabel_3.Size = UDim2.new(0, 0, 0, 18)
+TextLabel_3.Selectable = false
+TextLabel_3.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_3.Text = "🔴 Valkyrie Helm"
+TextLabel_3.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_3.TextSize = 16
+TextLabel_3.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel_3.TextYAlignment = Enum.TextYAlignment.Bottom
+
+TextLabel_4.BackgroundTransparency = 1
+TextLabel_4.Parent = Main_1
+TextLabel_4.Position = UDim2.new(0.4000000059604645, 0, 0.8999999761581421, 0)
+TextLabel_4.Size = UDim2.new(0, 0, 0, 18)
+TextLabel_4.Selectable = false
+TextLabel_4.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_4.Text = "🔴 Mirror Fractal"
+TextLabel_4.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_4.TextSize = 16
+TextLabel_4.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel_4.TextYAlignment = Enum.TextYAlignment.Bottom
+
+TextLabel_5.BackgroundTransparency = 1
+TextLabel_5.Parent = Main_1
+TextLabel_5.Position = UDim2.new(0.07000000029802322, 0, 0.8999999761581421, 0)
+TextLabel_5.Size = UDim2.new(0, 0, 0, 18)
+TextLabel_5.Selectable = false
+TextLabel_5.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_5.Text = "🔴 Skull Guitar"
+TextLabel_5.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_5.TextSize = 16
+TextLabel_5.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel_5.TextYAlignment = Enum.TextYAlignment.Bottom
+
+TextLabel_6.BackgroundTransparency = 1
+TextLabel_6.Parent = Main_1
+TextLabel_6.Position = UDim2.new(0.07000000029802322, 0, 0.6499999761581421, 0)
+TextLabel_6.Size = UDim2.new(0, 33, 0, 18)
+TextLabel_6.Selectable = false
+TextLabel_6.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_6.Text = "Fragments: N/A"
+TextLabel_6.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_6.TextSize = 16
+TextLabel_6.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel_6.TextYAlignment = Enum.TextYAlignment.Bottom
+
+TextLabel_7.BackgroundTransparency = 1
+TextLabel_7.Parent = Main_1
+TextLabel_7.Position = UDim2.new(0.4000000059604645, 0, 0.800000011920929, 0)
+TextLabel_7.Size = UDim2.new(0, 0, 0, 18)
+TextLabel_7.Selectable = false
+TextLabel_7.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_7.Text = "🔴 Cursed Dual Katana"
+TextLabel_7.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_7.TextSize = 16
+TextLabel_7.TextXAlignment = Enum.TextXAlignment.Left
+TextLabel_7.TextYAlignment = Enum.TextYAlignment.Bottom
+
+Top_1.BackgroundTransparency = 0.9990000128746033
+Top_1.Name = "Top"
+Top_1.Parent = Main_1
+Top_1.Position = UDim2.new(0.5, 0, 0.05000000074505806, 0)
+Top_1.Size = UDim2.new(0, 0, 0, 18)
+Top_1.Selectable = false
+Top_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+Top_1.Text = "Vortex Hub Stats Checker"
+Top_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+Top_1.TextSize = 16
+Top_1.TextYAlignment = Enum.TextYAlignment.Bottom
+
+-- Purple gradient for title
+UIGradient_1.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(186, 85, 211)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(138, 43, 226))
+}
+UIGradient_1.Parent = Top_1
+
+Under_1.BackgroundTransparency = 0.9990000128746033
+Under_1.Name = "Under"
+Under_1.Parent = Main_1
+Under_1.Position = UDim2.new(0.20000000298023224, 0, 0.25, 0)
+Under_1.Size = UDim2.new(0, 0, 0, 18)
+Under_1.Selectable = false
+Under_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+Under_1.Text = "Account Stats"
+Under_1.TextColor3 = Color3.fromRGB(255, 255, 255)
+Under_1.TextSize = 16
+Under_1.TextYAlignment = Enum.TextYAlignment.Bottom
+
+-- Purple gradient for "Account Stats"
+UIGradient_2.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(186, 85, 211)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(138, 43, 226))
+}
+UIGradient_2.Parent = Under_1
+
+Under_2.BackgroundTransparency = 0.9990000128746033
+Under_2.Name = "Under"
+Under_2.Parent = Main_1
+Under_2.Position = UDim2.new(0.75, 0, 0.25, 0)
+Under_2.Size = UDim2.new(0, 0, 0, 18)
+Under_2.Selectable = false
+Under_2.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+Under_2.Text = "Account Items"
+Under_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+Under_2.TextSize = 16
+Under_2.TextYAlignment = Enum.TextYAlignment.Bottom
+
+-- Purple gradient for "Account Items"
+UIGradient_3.Color = ColorSequence.new{
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)),
+    ColorSequenceKeypoint.new(0.5, Color3.fromRGB(186, 85, 211)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(138, 43, 226))
+}
+UIGradient_3.Parent = Under_2
+
+DropShadow_1.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow_1.BackgroundColor3 = Color3.fromRGB(163, 162, 165)
+DropShadow_1.BackgroundTransparency = 1
+DropShadow_1.BorderColor3 = Color3.fromRGB(27, 42, 53)
+DropShadow_1.Name = "DropShadow"
+DropShadow_1.Parent = DropShadowHolder_1
+DropShadow_1.Position = UDim2.new(0.5, 0, 0.5, 0)
+DropShadow_1.Size = UDim2.new(1, 47, 1, 47)
+DropShadow_1.ZIndex = 0
+DropShadow_1.Image = "rbxassetid://6015897843"
+DropShadow_1.ImageTransparency = 0.25
+DropShadow_1.ImageColor3 = Color3.fromRGB(0, 0, 0)
+
+-- // UI Top \\ --
+
+local Status = Instance.new("ScreenGui")
+Status.Name = "Status"
+Status.Parent = game:GetService("CoreGui")
+Status.ResetOnSpawn = false
+Status.DisplayOrder = 10
+
+local DropShadow2Holder2_1 = Instance.new("Frame")
+DropShadow2Holder2_1.Name = "DropShadow2Holder2"
+DropShadow2Holder2_1.Parent = Status
+DropShadow2Holder2_1.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow2Holder2_1.BackgroundColor3 = Color3.fromRGB(163,163,163)
+DropShadow2Holder2_1.BackgroundTransparency = 1
+DropShadow2Holder2_1.BorderSizePixel = 0
+DropShadow2Holder2_1.Position = UDim2.new(0.5, 0,0.0500000007, 0)
+DropShadow2Holder2_1.Size = UDim2.new(0, 320,0, 68)
+DropShadow2Holder2_1.ZIndex = 0
+
+local DropShadow2_1 = Instance.new("ImageLabel")
+DropShadow2_1.Name = "DropShadow2"
+DropShadow2_1.Parent = DropShadow2Holder2_1
+DropShadow2_1.AnchorPoint = Vector2.new(0.5, 0.5)
+DropShadow2_1.BackgroundColor3 = Color3.fromRGB(163,162,165)
+DropShadow2_1.BackgroundTransparency = 1
+DropShadow2_1.BorderSizePixel = 0
+DropShadow2_1.Position = UDim2.new(0.5, 0,0.349999994, 0)
+DropShadow2_1.Size = UDim2.new(1, 47,1, 47)
+DropShadow2_1.ZIndex = 0
+DropShadow2_1.Image = "rbxassetid://6015897843"
+DropShadow2_1.ImageColor3 = Color3.fromRGB(0,0,0)
+DropShadow2_1.ImageTransparency = 0.5
+DropShadow2_1.ScaleType = Enum.ScaleType.Slice
+DropShadow2_1.SliceCenter = Rect.new(49, 49, 450, 450)
+
+local Main_2 = Instance.new("Frame")
+Main_2.Name = "Main"
+Main_2.Parent = DropShadow2_1
+Main_2.AnchorPoint = Vector2.new(0.5, 0.5)
+Main_2.BackgroundColor3 = Color3.fromRGB(0,0,0)
+Main_2.BackgroundTransparency = 0.5
+Main_2.BorderColor3 = Color3.fromRGB(0,0,0)
+Main_2.BorderSizePixel = 0
+Main_2.Position = UDim2.new(0.5, 0,0.5, 0)
+Main_2.Size = UDim2.new(1, -50,1, -55)
+
+local UIStroke_2 = Instance.new("UIStroke")
+UIStroke_2.Parent = Main_2
+UIStroke_2.Color = Color3.fromRGB(138, 43, 226) -- Purple color
+UIStroke_2.Thickness = 2.5
+
+local Top2_1 = Instance.new("TextLabel")
+Top2_1.Name = "Top2"
+Top2_1.Parent = Main_2
+Top2_1.AnchorPoint = Vector2.new(0.5, 0)
+Top2_1.BackgroundColor3 = Color3.fromRGB(163,162,165)
+Top2_1.BackgroundTransparency = 1
+Top2_1.Position = UDim2.new(0.5, 0,0, 10)
+Top2_1.Size = UDim2.new(0, 300,0, 18)
+Top2_1.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+Top2_1.Text = "Status: Waiting for available room to join..."
+Top2_1.TextColor3 = Color3.fromRGB(138, 43, 226) -- Purple color
+Top2_1.TextSize = 16
+Top2_1.TextWrapped = true
+
+local Under_3 = Instance.new("TextLabel")
+Under_3.Name = "Under"
+Under_3.Parent = Main_2
+Under_3.AnchorPoint = Vector2.new(0.5, 0)
+Under_3.BackgroundColor3 = Color3.fromRGB(255,255,255)
+Under_3.BackgroundTransparency = 0.9990000128746033
+Under_3.BorderColor3 = Color3.fromRGB(0,0,0)
+Under_3.BorderSizePixel = 0
+Under_3.Position = UDim2.new(0.5, 0,0, 30)
+Under_3.Size = UDim2.new(0, 450,0, 18)
+Under_3.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+Under_3.Text = "Farm Status: N/A"
+Under_3.TextColor3 = Color3.fromRGB(138, 43, 226) -- Purple color
+Under_3.TextSize = 16
+
+local TextLabel_8 = Instance.new("TextLabel")
+TextLabel_8.Parent = Status
+TextLabel_8.AnchorPoint = Vector2.new(0.5, 0.5)
+TextLabel_8.BackgroundColor3 = Color3.fromRGB(163,162,165)
+TextLabel_8.BackgroundTransparency = 1
+TextLabel_8.BorderSizePixel = 0
+TextLabel_8.Position = UDim2.new(0.5, 0,-0.0250000004, 0)
+TextLabel_8.Size = UDim2.new(0, 210,0, 50)
+TextLabel_8.FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json", Enum.FontWeight.Bold, Enum.FontStyle.Normal)
+TextLabel_8.Text = "discord.gg/vortexhub"
+TextLabel_8.TextColor3 = Color3.fromRGB(138, 43, 226) -- Purple color
+TextLabel_8.TextSize = 16
+
+local UIStroke_3 = Instance.new("UIStroke")
+UIStroke_3.Parent = TextLabel_8
+UIStroke_3.Thickness = 1
+UIStroke_3.Color = Color3.fromRGB(138, 43, 226)
+
+local UIGradient_4 = Instance.new("UIGradient")
+UIGradient_4.Parent = UIStroke_3
+UIGradient_4.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0,0), NumberSequenceKeypoint.new(0,0), NumberSequenceKeypoint.new(1,0)}
+
+-- // Toggle UI \\ --
+
+local VortexHubBtn = Instance.new("ScreenGui")
+local dutdit = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local ImageLabel = Instance.new("ImageLabel")
+local TextButton = Instance.new("TextButton")
+
+VortexHubBtn.Name = "Vortex Hub Btn"  
+VortexHubBtn.Parent = game:GetService("CoreGui")
+VortexHubBtn.ZIndexBehavior = Enum.ZIndexBehavior.Sibling  
+VortexHubBtn.DisplayOrder = 10
+
+dutdit.Name = "dut dit"  
+dutdit.Parent = VortexHubBtn  
+dutdit.AnchorPoint = Vector2.new(0.1, 0.1)  
+dutdit.BackgroundColor3 = Color3.fromRGB(138, 43, 226) -- Purple background
+dutdit.Position = UDim2.new(0, 20, 0.1, -6)  
+dutdit.Size = UDim2.new(0, 50, 0, 50)  
+dutdit.Active = true
+dutdit.Draggable = true
+
+UICorner.CornerRadius = UDim.new(1, 0)  
+UICorner.Parent = dutdit  
+
+ImageLabel.Parent = dutdit  
+ImageLabel.AnchorPoint = Vector2.new(0.5, 0.5)  
+ImageLabel.BackgroundTransparency = 1.0  
+ImageLabel.Position = UDim2.new(0.5, 0, 0.5, 0)  
+ImageLabel.Size = UDim2.new(0, 40, 0, 40)  
+ImageLabel.Image = "rbxassetid://75462758042657" -- Vortex Hub logo
+
+TextButton.Parent = dutdit  
+TextButton.BackgroundTransparency = 1.0  
+TextButton.Size = UDim2.new(1, 0, 1, 0)  
+TextButton.Font = Enum.Font.SourceSans  
+TextButton.Text = ""  
+TextButton.TextColor3 = Color3.fromRGB(27, 42, 53)  
+
+local zoomedIn = false  
+local originalSize = UDim2.new(0, 40, 0, 40)  
+local zoomedSize = UDim2.new(0, 30, 0, 30)  
+local tweenInfo = TweenInfo.new(0.25, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)  
+
+local faded = false  
+local fadeInTween = TweenService:Create(dutdit, tweenInfo, {BackgroundTransparency = 0.25})  
+local fadeOutTween = TweenService:Create(dutdit, tweenInfo, {BackgroundTransparency = 0})  
+
+-- Functions to update UI with player data
+local function updateStats()
+    local leaderstats = player:FindFirstChild("leaderstats")
+    if leaderstats then
+        local level = leaderstats:FindFirstChild("Level")
+        local beli = leaderstats:FindFirstChild("Beli")
+        local fragments = leaderstats:FindFirstChild("Fragments")
+        
+        if level then
+            LevelLabel_1.Text = "Level: " .. level.Value .. "    Third Sea: ❌"
+        end
+        if beli then
+            BeliLabel_1.Text = "Money: " .. beli.Value
+        end
+        if fragments then
+            TextLabel_6.Text = "Fragments: " .. fragments.Value
+        end
+    end
     
-    -- Slide shadow lệch
-    TweenService:Create(Shadow, TweenInfo.new(3.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-        Position = UDim2.new(POS_IN.X.Scale, POS_IN.X.Offset + 12,
-                             POS_IN.Y.Scale, POS_IN.Y.Offset + 15),
-    }):Play()
-    
-    -- Slide glow
-    TweenService:Create(Glow, TweenInfo.new(3.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-        Position = UDim2.new(POS_IN.X.Scale, POS_IN.X.Offset - 20,
-                             POS_IN.Y.Scale, POS_IN.Y.Offset - 20),
-    }):Play()
-    
-    -- Slide border glow
-    TweenService:Create(BorderGlow, TweenInfo.new(3.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-        Position = UDim2.new(POS_IN.X.Scale, POS_IN.X.Offset - 8,
-                             POS_IN.Y.Scale, POS_IN.Y.Offset - 8),
-    }):Play()
-    
-    slideIn.Completed:Connect(function()
-        introDone = true
-    end)
-end)
-
--- ===== HIỆU ỨNG ROTATION + PULSE =====
-local rotation = 0
-local elapsed = 0
-local beatTimer = 0
-local beatInterval = 60 / BPM
-local isBeat = false
-local scaleDirection = 1
-local currentScale = 1
-
-local function doBeat()
-    if isBeat or not introDone then return end
-    isBeat = true
-    
-    -- Glow nhấp nháy theo nhạc
-    TweenService:Create(Glow, TweenInfo.new(0.05), { ImageTransparency = 0.3 }):Play()
-    TweenService:Create(BorderGlow, TweenInfo.new(0.05), { ImageTransparency = 0.2 }):Play()
-    
-    task.delay(0.1, function()
-        TweenService:Create(Glow, TweenInfo.new(0.3), { ImageTransparency = 0.7 }):Play()
-        TweenService:Create(BorderGlow, TweenInfo.new(0.3), { ImageTransparency = 0.5 }):Play()
-        isBeat = false
-    end)
-end
-
--- Particle animation
-local function animateParticles()
-    for _, particle in pairs(particles) do
-        local newX = math.random() * particle.Parent.AbsoluteSize.X / particle.Parent.AbsoluteSize.X
-        local newY = math.random() * particle.Parent.AbsoluteSize.Y / particle.Parent.AbsoluteSize.Y
-        TweenService:Create(particle, TweenInfo.new(math.random(3, 8), Enum.EasingStyle.Linear), {
-            Position = UDim2.new(newX, 0, newY, 0)
-        }):Play()
+    local race = player:FindFirstChild("Race")
+    if race then
+        RaceLabel_1.Text = "Race: " .. race.Value
     end
 end
 
--- Chạy particle loop
-task.spawn(function()
+local function updateInventory()
+    local inventory = player:FindFirstChild("Backpack")
+    if inventory then
+        local items = {}
+        for _, item in ipairs(inventory:GetChildren()) do
+            table.insert(items, item.Name)
+        end
+        
+        ItemLabel1_1.Text = items[1] or "Empty"
+        ItemLabel2_1.Text = items[2] or "Empty"
+        ItemLabel1_2.Text = items[3] or "Empty"
+    end
+end
+
+-- Update UI when player data changes
+player.CharacterAdded:Connect(function()
+    task.wait(1)
+    updateStats()
+    updateInventory()
+end)
+
+player:GetPropertyChangedSignal("Character"):Connect(function()
+    if player.Character then
+        task.wait(1)
+        updateStats()
+        updateInventory()
+    end
+end)
+
+-- Initial update
+task.wait(1)
+updateStats()
+updateInventory()
+
+-- Auto-update every 5 seconds
+spawn(function()
     while true do
-        task.wait(4)
-        if introDone then
-            animateParticles()
+        task.wait(5)
+        updateStats()
+        updateInventory()
+    end
+end)
+
+TextButton.MouseButton1Down:Connect(  
+    function()  
+        if zoomedIn then  
+            TweenService:Create(ImageLabel, tweenInfo, {Size = originalSize}):Play()  
+        else  
+            TweenService:Create(ImageLabel, tweenInfo, {Size = zoomedSize}):Play()  
+        end  
+        zoomedIn = not zoomedIn  
+
+        if faded then  
+            fadeOutTween:Play()  
+        else  
+            fadeInTween:Play()  
+        end  
+        faded = not faded  
+        
+        if CoinCard_1.Enabled == false then
+            CoinCard_1.Enabled = true
+        else
+            CoinCard_1.Enabled = false
         end
-    end
-end)
-
-RunService.RenderStepped:Connect(function(dt)
-    elapsed = elapsed + dt
-    beatTimer = beatTimer + dt
-    
-    if not introDone then return end
-    
-    -- Xoay logo (rất chậm và mượt)
-    rotation = (rotation + 25 * dt) % 360
-    Logo.Rotation = rotation
-    Shadow.Rotation = rotation
-    Glow.Rotation = rotation
-    BorderGlow.Rotation = rotation
-    
-    -- Hiệu ứng phồng xẹp nhẹ
-    currentScale = 1 + math.sin(elapsed * 2) * 0.02
-    Logo.Size = UDim2.new(0, LOGO_SIZE * currentScale, 0, LOGO_SIZE * currentScale)
-    Shadow.Size = UDim2.new(0, LOGO_SIZE * currentScale, 0, LOGO_SIZE * currentScale)
-    Glow.Size = UDim2.new(0, (LOGO_SIZE + 50) * currentScale, 0, (LOGO_SIZE + 50) * currentScale)
-    BorderGlow.Size = UDim2.new(0, (LOGO_SIZE + 15) * currentScale, 0, (LOGO_SIZE + 15) * currentScale)
-    
-    -- Glow pulse theo sin
-    Glow.ImageTransparency = 0.6 + 0.15 * math.sin(elapsed * 2.5)
-    BorderGlow.ImageTransparency = 0.4 + 0.15 * math.sin(elapsed * 2.5)
-    
-    if beatTimer >= beatInterval then
-        beatTimer = beatTimer - beatInterval
-        doBeat()
-    end
-end)
-
--- Click để tắt/mở nhạc
-Logo.InputBegan:Connect(function(i)
-    if i.UserInputType == Enum.UserInputType.MouseButton1 then
-        if Sound.IsPlaying then 
-            Sound:Pause()
-        else 
-            Sound:Play()
+        
+        if blur.Size == 24 then
+            blur.Size = 0
+        else
+            blur.Size = 24
         end
-    end
-end)
-
--- Border glow animation khi hover (nếu muốn)
-Logo.MouseEnter:Connect(function()
-    TweenService:Create(BorderGlow, TweenInfo.new(0.3), { ImageTransparency = 0.15 }):Play()
-end)
-
-Logo.MouseLeave:Connect(function()
-    TweenService:Create(BorderGlow, TweenInfo.new(0.3), { ImageTransparency = 0.5 }):Play()
-end)
-
-print("✅ Vortex Hub loaded!") 
+    end  
+)
